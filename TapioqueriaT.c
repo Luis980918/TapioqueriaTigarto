@@ -53,14 +53,10 @@ int primerRecorrido(){
 
 /*Algoritmo para hacer la matriz*/
 void segundoRecorrido(int pp, int i){
-
-	
 	FILE* flujo=fopen("pedidos.txt", "rb");
 	char cadena2[100];
 	int contador=1;
-	int control=1;
 	char cadena[100];
-	int acum=0;
 	int matriz[pp][i];
 
 	for(int j=0;j<i;j++){
@@ -71,17 +67,8 @@ void segundoRecorrido(int pp, int i){
 	while(feof(flujo)==0){
 		fscanf(flujo, "%s\n", cadena);
 		if(isdigit(*cadena)){
-			if(contador>4){
-				//printf("\n%d\n", contador-4);
-				acum=atoi(cadena);
-			}
 			contador++;
 		}else{
-			/*if(strcmp(cadena, "ajo")==0){
-				printf("\n%d\n", contador-5);
-				printf("\n%s\n",cadena);
-			}*/
-
 			FILE * flujo3=fopen("v.txt", "rb");
 			int b=0;
 			while(feof(flujo3)==0){
@@ -93,7 +80,6 @@ void segundoRecorrido(int pp, int i){
 				b++;
 			}
 			fclose(flujo3);
-
 		}
 	}
 	for(int j=0;j<i;j++){
@@ -102,12 +88,8 @@ void segundoRecorrido(int pp, int i){
 		}
 		printf("\n");
 	}
-
 	fclose(flujo);
-
 }	
-
-
 
 /*En este metodo se utiliza un archivo de texto plano para almacenar
 la información dinamicamente y saber la totalidad de platos distintos*/
