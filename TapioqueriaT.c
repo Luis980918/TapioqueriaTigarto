@@ -64,6 +64,7 @@ void segundoRecorrido(int pp, int i){
 			matriz[k][j]=0;
 		}
 	}
+	
 	while(feof(flujo)==0){
 		fscanf(flujo, "%s\n", cadena);
 		if(isdigit(*cadena)){
