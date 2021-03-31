@@ -4,18 +4,31 @@
 #include <malloc.h>
 #include <string.h>
 
-void dinamico(char *ingrediente);
-int primerRecorrido();
-int pp;
 void segundoRecorrido(int pp, int i);
+void permute(char *a, int i, int n);
+void dinamico(char *ingrediente);
+void swap(char *a, char*b);
+int primerRecorrido();
 int contU=0;
+
+int pp;
 
 
 int main(void){
-	printf("\n %d \n", primerRecorrido());
-	printf("\n %d \n", contU);
-	segundoRecorrido(pp, contU);
+	int ntpp=0;
+	
+	//printf("\n %d \n", contU);
+	ntpp=primerRecorrido();
+	printf("\n %d \n", ntpp);
+	//segundoRecorrido(pp, contU);
+	char ap[]={0};
+	for(int i=1;i<=ntpp; i++){
+		ap[i-1]=i+'0';
+		printf("\n%c\n", ap[i]);
+	}
 	remove("v.txt");
+	permute(ap, 0, ntpp);
+	
 	return 0;
 }
 
@@ -91,6 +104,38 @@ void segundoRecorrido(int pp, int i){
 	}
 	fclose(flujo);
 }	
+
+/*Algoritmo encargado de realizar permutaciones*/
+void permute(char *a, int i, int n){
+    int j;
+    if (i==n){
+		if(strlen(a)==n){
+			printf("%s \n", a);
+			/*if((a[0]-'0')==1){
+				printf("%s \n", a);
+			}*/
+		}
+	}else
+    {
+        for (j = i; j <= n; j++)
+        {
+            swap((a + i), (a + j));
+            permute(a, i + 1, n);
+            swap((a + i), (a + j));
+        }
+    }
+}
+
+/*Algoritmo complementario para realizar permutaciones
+en un vector de n posiciones*/
+void swap(char *a, char *b){
+    char temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+
 
 /*En este metodo se utiliza un archivo de texto plano para almacenar
 la información dinamicamente y saber la totalidad de platos distintos*/
