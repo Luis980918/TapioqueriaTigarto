@@ -10,7 +10,7 @@ void dinamico(char *ingrediente);
 void swap(char *a, char*b);
 int primerRecorrido();
 int contU=0;
-
+int x, y, z; //para los pedidos de 1, 2 y 3 respectivamente
 int pp;
 
 
@@ -20,11 +20,13 @@ int main(void){
 	//printf("\n %d \n", contU);
 	ntpp=primerRecorrido();
 	printf("\n %d \n", ntpp);
-	//segundoRecorrido(pp, contU);
-	char ap[]={0};
-	for(int i=1;i<=ntpp; i++){
+	segundoRecorrido(pp, contU);
+	char ap[ntpp+1];
+	for(int i=1;i<ntpp+2; i++){
 		ap[i-1]=i+'0';
-		printf("\n%c\n", ap[i]);
+		if(i==ntpp+1){
+			ap[i-1]='\0';
+		}
 	}
 	remove("v.txt");
 	permute(ap, 0, ntpp);
@@ -52,6 +54,16 @@ int primerRecorrido(){
 			}
 			if((contador>1) && (contador<5)){
 				acum=acum+(atoi(cadena)*contador);
+				if ((contador==2)){
+						x = (atoi(cadena)*2);
+					}
+					if ((contador==3)){
+						y = (atoi(cadena)*3);
+					} 
+					if ((contador==4)){
+						z = (atoi(cadena)*4);
+					}
+				
 			}
 				//printf("\n %d",(atoi(cadena)));
 			contador++;
@@ -110,7 +122,7 @@ void permute(char *a, int i, int n){
     int j;
     if (i==n){
 		if(strlen(a)==n){
-			printf("%s \n", a);
+			//printf("%s \n", a);
 			/*if((a[0]-'0')==1){
 				printf("%s \n", a);
 			}*/
