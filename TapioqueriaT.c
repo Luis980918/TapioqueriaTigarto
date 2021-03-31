@@ -8,6 +8,7 @@ void segundoRecorrido(int pp, int i);
 void permute(char *a, int i, int n);
 void dinamico(char *ingrediente);
 void swap(char *a, char*b);
+void delimitador(char *a);
 int primerRecorrido();
 int contU=0;
 int x, y, z; //para los pedidos de 1, 2 y 3 respectivamente
@@ -56,12 +57,15 @@ int primerRecorrido(){
 				acum=acum+(atoi(cadena)*contador);
 				if ((contador==2)){
 						x = (atoi(cadena)*2);
+						printf("\n%d\n", x);
 					}
 					if ((contador==3)){
-						y = (atoi(cadena)*3);
+						y = (atoi(cadena)*3)+x;
+						printf("\n%d\n", y);
 					} 
 					if ((contador==4)){
-						z = (atoi(cadena)*4);
+						z = (atoi(cadena)*4)+y;
+						printf("\n%d\n", z);
 					}
 				
 			}
@@ -126,6 +130,7 @@ void permute(char *a, int i, int n){
 			/*if((a[0]-'0')==1){
 				printf("%s \n", a);
 			}*/
+			delimitador(a);
 		}
 	}else
     {
@@ -136,6 +141,19 @@ void permute(char *a, int i, int n){
             swap((a + i), (a + j));
         }
     }
+}
+/*Algoritmo para particionar el vector de permutaciones*/
+void delimitador(char *a){
+	for(int k=0;k<x; k++){
+		printf("\n%c\n",a[k]);
+	}
+	for(int l=x;l<y; l++){
+		printf("%c",a[l]);
+	}
+	for(int m=y;m<z; m++){
+		printf("%c",a[m]);
+	}
+	printf("\n");
 }
 
 /*Algoritmo complementario para realizar permutaciones
