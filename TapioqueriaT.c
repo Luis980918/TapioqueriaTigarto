@@ -5,32 +5,27 @@
 #include <string.h>
 
 void segundoRecorrido(int pp, int i);
-void permute(char *a, int i, int n);
 void dinamico(char *ingrediente);
 void swap(char *a, char*b);
-void delimitador(char *a);
 int primerRecorrido();
+int vector[10];
 int contU=0;
+int acumU=0;
 int x, y, z; //para los pedidos de 1, 2 y 3 respectivamente
-int pp;
+int mAlto1=0;
+int mAlto2=0;
+int mAlto3=0;
+int ntpp=0;
+int pp=0;
+
 
 
 int main(void){
-	int ntpp=0;
+	
 	
 	//printf("\n %d \n", contU);
 	ntpp=primerRecorrido();
-	printf("\n %d \n", ntpp);
 	segundoRecorrido(pp, contU);
-	char ap[ntpp+1];
-	for(int i=1;i<ntpp+2; i++){
-		ap[i-1]=i+'0';
-		if(i==ntpp+1){
-			ap[i-1]='\0';
-		}
-	}
-	remove("v.txt");
-	permute(ap, 0, ntpp);
 	
 	return 0;
 }
@@ -57,15 +52,12 @@ int primerRecorrido(){
 				acum=acum+(atoi(cadena)*contador);
 				if ((contador==2)){
 						x = (atoi(cadena)*2);
-						printf("\n%d\n", x);
 					}
 					if ((contador==3)){
 						y = (atoi(cadena)*3)+x;
-						printf("\n%d\n", y);
 					} 
 					if ((contador==4)){
 						z = (atoi(cadena)*4)+y;
-						printf("\n%d\n", z);
 					}
 				
 			}
@@ -119,41 +111,93 @@ void segundoRecorrido(int pp, int i){
 		printf("\n");
 	}
 	fclose(flujo);
+	remove("v.txt");
+	//
+	void permute(char *a, int i, int n, int matriz[pp][contU]);
+
+	char ap[ntpp+1];
+	for(int i=1;i<ntpp+2; i++){
+		ap[i-1]=i+'0';
+		if(i==ntpp+1){
+			ap[i-1]='\0';
+		}
+	}
+	permute(ap, 0, ntpp, matriz);
+
+	
+	/*void vectorSolucion(int matriz[pp][contU], int dato);
+	for(int i=0;i<10; i++){
+		vector[i]=0;
+	}
+	/*vectorSolucion(matriz, 1);
+	vectorSolucion(matriz, 2);
+	
+	for(int i=0;i<10; i++){
+		printf("\n%i\n", vector[i]);
+	}*/
+	printf("\n%d\n", mAlto1);
+
 }	
 
 /*Algoritmo encargado de realizar permutaciones*/
-void permute(char *a, int i, int n){
+void permute(char *a, int i, int n, int matriz[pp][contU]){
     int j;
+	int cont1=0;
+	int cont2=0;
+	int cont3=0;
+
     if (i==n){
 		if(strlen(a)==n){
-			//printf("%s \n", a);
-			/*if((a[0]-'0')==1){
-				printf("%s \n", a);
-			}*/
-			delimitador(a);
+			for(int k=0;k<x; k++){
+			//printf("%c",a[k]);
+				for(int j=0;j<contU;j++){
+					//printf(" %d", matriz[dato][j]);
+					if(vector[j]==1 || matriz[a[k]-'0'][j]==1){
+						vector[j]=1;
+					}
+				}
+
+			}
+			for(int i=0;i<10; i++){
+				//printf("\n%i\n", vector[i]);
+				if(vector[i]==1){
+					cont1++;
+					vector[i]=0;
+				}	
+			}
+			if(cont1>mAlto1){
+				mAlto1=cont1;
+			}
+
+			
+			for(int l=x;l<y; l++){
+				//printf("%c",a[l]);
+			}
+			for(int m=y;m<z; m++){
+				//printf("%c",a[m]);
+			}
+			//printf("\n");
 		}
 	}else
     {
         for (j = i; j <= n; j++)
         {
             swap((a + i), (a + j));
-            permute(a, i + 1, n);
+            permute(a, i + 1, n, matriz);
             swap((a + i), (a + j));
         }
     }
 }
-/*Algoritmo para particionar el vector de permutaciones*/
-void delimitador(char *a){
-	for(int k=0;k<x; k++){
-		printf("\n%c\n",a[k]);
+/*Puto el que lo lea*/
+void vectorSolucion(int matriz[pp][contU], int dato){
+	
+	for(int j=0;j<contU;j++){
+		//printf(" %d", matriz[dato][j]);
+		if(vector[j]==1||matriz[dato][j]==1){
+			vector[j]=1;
+		}
+		printf("\n");
 	}
-	for(int l=x;l<y; l++){
-		printf("%c",a[l]);
-	}
-	for(int m=y;m<z; m++){
-		printf("%c",a[m]);
-	}
-	printf("\n");
 }
 
 /*Algoritmo complementario para realizar permutaciones
@@ -164,9 +208,6 @@ void swap(char *a, char *b){
     *a = *b;
     *b = temp;
 }
-
-
-
 /*En este metodo se utiliza un archivo de texto plano para almacenar
 la información dinamicamente y saber la totalidad de platos distintos*/
 void dinamico(char *dato){
