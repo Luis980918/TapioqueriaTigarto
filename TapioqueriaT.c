@@ -150,16 +150,19 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 
     if (i==n){
 		if(strlen(a)==n){
+			printf("\n");
 			for(int k=0;k<x; k++){
-			//printf("%c",a[k]);
+			printf("\n%c\n",a[k]);
 				for(int j=0;j<contU;j++){
-					//printf(" %d", matriz[dato][j]);
+					printf(" %d", matriz[(a[k]-'0')-1][j]);
 					if(vector[j]==1 || matriz[a[k]-'0'][j]==1){
 						vector[j]=1;
 					}
 				}
+				printf("\n");
 
 			}
+			printf("\n%s\n", a);
 			for(int i=0;i<10; i++){
 				//printf("\n%i\n", vector[i]);
 				if(vector[i]==1){
@@ -167,62 +170,15 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 					vector[i]=0;
 				}	
 			}
+			printf("\n%d\n", cont1);
 			if(cont1>mAlto1){
 				mAlto1=cont1;
-			}
-////////////////////////////////////////////////////////////////////////////////
-			
-			for(int l=x;l<y; l++){
-				//printf("%c",a[l]);
-				for(int j=0;j<contU;j++){
-					//printf(" %d", matriz[dato][j]);
-					if(vector[j]==1 || matriz[a[l]-'0'][j]==1){
-						vector[j]=1;
-					}
-				}
-			}
-			for(int i=0;i<10; i++){
-				//printf("\n%i\n", vector[i]);
-				if(vector[i]==1){
-					cont2++;
-					vector[i]=0;
-				}	
-			}
-			if(cont2>mAlto2){
-				mAlto2=cont2;
-			}
-/////////////////////////////////////////////////////////////////////////////////////
-
-			for(int m=y;m<z; m++){
-				//printf("%c",a[m]);
-				for(int j=0;j<contU;j++){
-					//printf(" %d", matriz[dato][j]);
-					if(vector[j]==1 || matriz[a[m]-'0'][j]==1){
-						vector[j]=1;
-					}
-				}
-			}
-			for(int i=0;i<10; i++){
-				//printf("\n%i\n", vector[i]);
-				if(vector[i]==1){
-					cont3++;
-					vector[i]=0;
-				}	
-			}
-			if(cont3>mAlto3){
-				mAlto3=cont3;
 			}
 			/*printf("\n%s\n", a);
 			printf("\n%d\n", mAlto1);
 			printf("\n%d\n", mAlto2);
-			printf("\n%d\n", mAlto3);
-			exit(-1);*/
-			
-			if((mAlto1>=8)&&(mAlto2>=8)&&(mAlto3>=8)){
-				printf("Hola");
-				printf("\n%s\n", a);
-				exit(-1);
-			}
+			printf("\n%d\n", mAlto3);*/
+			exit(-1);
 		}
 
 	}else
