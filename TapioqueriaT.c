@@ -12,10 +12,8 @@ int vector[10];
 int contU=0;
 int acumU=0;
 int x, y, z; //para los pedidos de 1, 2 y 3 respectivamente
-int mAlto1=0;
-int mAlto2=0;
-int mAlto3=0;
 int ntpp=0;
+char *vsc;
 int pp=0;
 
 
@@ -123,21 +121,7 @@ void segundoRecorrido(int pp, int i){
 		}
 	}
 	permute(ap, 0, ntpp, matriz);
-
 	
-	/*void vectorSolucion(int matriz[pp][contU], int dato);
-	for(int i=0;i<10; i++){
-		vector[i]=0;
-	}
-	/*vectorSolucion(matriz, 1);
-	vectorSolucion(matriz, 2);
-	
-	for(int i=0;i<10; i++){
-		printf("\n%i\n", vector[i]);
-	}*/
-	printf("\n%d\n", mAlto1);
-	printf("\n%d\n", mAlto2);
-	printf("\n%d\n", mAlto3);
 
 }	
 
@@ -150,19 +134,17 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 
     if (i==n){
 		if(strlen(a)==n){
-			printf("\n");
+			//printf("\n");
 			for(int k=0;k<x; k++){
-			printf("\n%c\n",a[k]);
+			//printf("\n%c\n",a[k]);
 				for(int j=0;j<contU;j++){
-					printf(" %d", matriz[(a[k]-'0')-1][j]);
-					if(vector[j]==1 || matriz[a[k]-'0'][j]==1){
+					//printf(" %d", matriz[(a[k]-'0')-1][j]);
+					if(vector[j]==1 || matriz[(a[k]-'0')-1][j]==1){
 						vector[j]=1;
 					}
 				}
-				printf("\n");
-
+				//printf("\n");
 			}
-			printf("\n%s\n", a);
 			for(int i=0;i<10; i++){
 				//printf("\n%i\n", vector[i]);
 				if(vector[i]==1){
@@ -170,15 +152,59 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 					vector[i]=0;
 				}	
 			}
-			printf("\n%d\n", cont1);
-			if(cont1>mAlto1){
-				mAlto1=cont1;
+///////////////////////////////////////////////////////////////////////////////
+
+			//printf("\n");
+			for(int l=x;l<y; l++){
+			//printf("\n%c\n",a[l]);
+				for(int j=0;j<contU;j++){
+					//printf(" %d", matriz[(a[l]-'0')-1][j]);
+					if(vector[j]==1 || matriz[(a[l]-'0')-1][j]==1){
+						vector[j]=1;
+					}
+				}
+				//printf("\n");
 			}
+			
+			for(int i=0;i<10; i++){
+				//printf("\n%i\n", vector[i]);
+				if(vector[i]==1){
+					cont2++;
+					vector[i]=0;
+				}	
+			}
+//////////////////////////////////////////////////////////////////////////////
+			//printf("\n");
+			for(int m=y;m<z; m++){
+			//printf("\n%c\n",a[m]);
+				for(int j=0;j<contU;j++){
+					//printf(" %d", matriz[(a[m]-'0')-1][j]);
+					if(vector[j]==1 || matriz[(a[m]-'0')-1][j]==1){
+						vector[j]=1;
+					}
+				}
+				//printf("\n");
+			}
+			
+			for(int i=0;i<10; i++){
+				//printf("\n%i\n", vector[i]);
+				if(vector[i]==1){
+					cont3++;
+					vector[i]=0;
+				}	
+			}
+
+			//printf("\n%d\n", contU);
+			if(cont1>=(contU*0.8)&&cont2>=(contU*0.8)&&cont3>=(contU*0.8)&&(cont1>(contU*0.8)&&cont1<=contU||cont2>(contU*0.8)&&cont2<=contU||cont3>(contU*0.8)&&cont3<=contU)){
+				//printf("\n%d%d%d\n", cont1, cont2, cont3);
+				printf("\n%s\n", a);
+				exit(-1);
+			}
+
 			/*printf("\n%s\n", a);
 			printf("\n%d\n", mAlto1);
 			printf("\n%d\n", mAlto2);
 			printf("\n%d\n", mAlto3);*/
-			exit(-1);
 		}
 
 	}else
