@@ -10,10 +10,8 @@ void swap(char *a, char*b);
 int primerRecorrido();
 int vector[10];
 int contU=0;
-int acumU=0;
 int x, y, z; //para los pedidos de 1, 2 y 3 respectivamente
 int ntpp=0;
-char *vsc;
 int pp=0;
 
 
@@ -216,17 +214,6 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
             swap((a + i), (a + j));
         }
     }
-}
-/*Puto el que lo lea*/
-void vectorSolucion(int matriz[pp][contU], int dato){
-	
-	for(int j=0;j<contU;j++){
-		//printf(" %d", matriz[dato][j]);
-		if(vector[j]==1||matriz[dato][j]==1){
-			vector[j]=1;
-		}
-		printf("\n");
-	}
 }
 
 /*Algoritmo complementario para realizar permutaciones
