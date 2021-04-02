@@ -137,6 +137,7 @@ void segundoRecorrido(int pp, int i){
 	}*/
 	printf("\n%d\n", mAlto1);
 	printf("\n%d\n", mAlto2);
+	printf("\n%d\n", mAlto3);
 
 }	
 
@@ -194,8 +195,36 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 
 			for(int m=y;m<z; m++){
 				//printf("%c",a[m]);
+				for(int j=0;j<contU;j++){
+					//printf(" %d", matriz[dato][j]);
+					if(vector[j]==1 || matriz[a[m]-'0'][j]==1){
+						vector[j]=1;
+					}
+				}
+			}
+			for(int i=0;i<10; i++){
+				//printf("\n%i\n", vector[i]);
+				if(vector[i]==1){
+					cont3++;
+					vector[i]=0;
+				}	
+			}
+			if(cont3>mAlto3){
+				mAlto3=cont3;
+			}
+			/*printf("\n%s\n", a);
+			printf("\n%d\n", mAlto1);
+			printf("\n%d\n", mAlto2);
+			printf("\n%d\n", mAlto3);
+			exit(-1);*/
+			
+			if((mAlto1>=8)&&(mAlto2>=8)&&(mAlto3>=8)){
+				printf("Hola");
+				printf("\n%s\n", a);
+				exit(-1);
 			}
 		}
+
 	}else
     {
         for (j = i; j <= n; j++)
