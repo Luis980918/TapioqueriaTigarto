@@ -22,6 +22,7 @@ int main(void){
 	//printf("\n %d \n", contU);
 	ntpp=primerRecorrido();
 	segundoRecorrido(pp, contU);
+	printf("Hola");
 	
 	return 0;
 }
@@ -196,13 +197,28 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 			if(cont1>=(contU*0.8)&&cont2>=(contU*0.8)&&cont3>=(contU*0.8)&&(cont1>(contU*0.8)&&cont1<=contU||cont2>(contU*0.8)&&cont2<=contU||cont3>(contU*0.8)&&cont3<=contU)){
 				//printf("\n%d%d%d\n", cont1, cont2, cont3);
 				printf("\n%s\n", a);
-				exit(-1);
-			}
 
-			/*printf("\n%s\n", a);
-			printf("\n%d\n", mAlto1);
-			printf("\n%d\n", mAlto2);
-			printf("\n%d\n", mAlto3);*/
+
+				FILE * flujo2=fopen("output.txt", "a");
+				char hola[100];
+				if(flujo2==NULL){
+				perror("Error en la creacion del archivo \n\n");
+				}else{
+					fputs("Esta es la matriz de platos: \n\n",flujo2);
+					for(int j=0;j<contU;j++){
+						for(int k=0;k<pp;k++){
+							sprintf(hola, "%d", matriz[k][j]);
+							fputs(hola, flujo2);
+						}
+						fputs("\n", flujo2);
+					}
+
+				}
+				fputs("\nEste es el vector solucion: \n", flujo2);
+				fputs(a, flujo2);
+				fclose(flujo2);
+				exit(0);
+			}
 		}
 
 	}else
