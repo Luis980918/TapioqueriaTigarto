@@ -4,46 +4,57 @@
 #include <malloc.h>
 #include <string.h>
 
-void segundoRecorrido(int pp, int i);
+void segundoRecorrido(int pp, int i, int argc, char* argv[]);
 void dinamico(char *ingrediente);
 void swap(char *a, char*b);
-int primerRecorrido();
-int vector[10];
+int primerRecorrido(int argc, char* argv[]);
 int contU=0;
 int x, y, z; //para los pedidos de 1, 2 y 3 respectivamente
 int ntpp=0;
+int mA1, mA2, mA3;
+char *aU;
 int pp=0;
 
 
 
-int main(void){
+int main(int argc, char* argv[]){
+	if(argc<2){
+		printf("Debe indicar un argumento\n");
+		return -1;
+	}
+
+	ntpp=primerRecorrido(argc, argv);
 	
+	if(ntpp==pp){
+		segundoRecorrido(pp, contU, argc, argv);
+	}else{
+		printf("\nla cantidad de platos pedidos no concuerda con la especificada al principio del archivo\n");
+		remove("v.txt");
+		return -1;
+	}
 	
-	//printf("\n %d \n", contU);
-	ntpp=primerRecorrido();
-	segundoRecorrido(pp, contU);
-	printf("Hola");
 	
 	return 0;
 }
 
 
 /*En este metodo se lleva a cabo el primer recorrido del archivo o la primer lectura*/
-int primerRecorrido(){
-	FILE* flujo=fopen("pedidos.txt", "rb");
+int primerRecorrido(int argc, char* argv[]){
+	FILE* flujo=fopen(argv[1], "rb");
 	if(flujo==NULL){
 		perror("Error en la apertura del archivo");
 		return 1;
 	}
 	int acum=0;
 	int contador=1;
+	int comparador=0;
+	int verificador=0;
 	char cadena[100];
 	while(feof(flujo)==0){
 		fscanf(flujo, "%s\n", cadena);
 		if(isdigit(*cadena)){
 			if(contador==1){
 				pp=atoi(cadena);
-				//printf("\n %d",pp);
 			}
 			if((contador>1) && (contador<5)){
 				acum=acum+(atoi(cadena)*contador);
@@ -58,20 +69,35 @@ int primerRecorrido(){
 					}
 				
 			}
-				//printf("\n %d",(atoi(cadena)));
+				if(contador>5){
+					if(!(comparador==verificador)){
+						printf("\nLa cantidad de ingredientes no corresponde con la indicada en el archivo\n");
+						remove("v.txt");
+						exit(-1);
+					}
+				}
 			contador++;
+			comparador=atoi(cadena);
+			verificador=0;
 		}	else{
-				//printf("\n %s",cadena);
 				dinamico(cadena);
+				verificador++;
 		}
 	}
 	fclose(flujo);
-	return acum;
+	if((contador-5)==pp){
+		return acum;
+	}else{
+		printf("\nProblema leyendo el archivo, el numero de pedidos no concuerda con el indicado\n");
+		remove("v.txt");
+		exit(-1);
+	}
+	
 }
 
 /*Algoritmo para hacer la matriz*/
-void segundoRecorrido(int pp, int i){
-	FILE* flujo=fopen("pedidos.txt", "rb");
+void segundoRecorrido(int pp, int i, int argc, char* argv[]){
+	FILE* flujo=fopen(argv[1], "rb");
 	char cadena2[100];
 	int contador=1;
 	char cadena[100];
@@ -94,7 +120,6 @@ void segundoRecorrido(int pp, int i){
 				fscanf(flujo3, "%s\n", cadena2);
 				if(strcmp(cadena2, cadena)==0){
 					matriz[contador-6][b]=1;
-					//printf("\n%d\n",b);
 				}
 				b++;
 			}
@@ -111,6 +136,7 @@ void segundoRecorrido(int pp, int i){
 	remove("v.txt");
 	//
 	void permute(char *a, int i, int n, int matriz[pp][contU]);
+	
 
 	char ap[ntpp+1];
 	for(int i=1;i<ntpp+2; i++){
@@ -120,8 +146,9 @@ void segundoRecorrido(int pp, int i){
 		}
 	}
 	permute(ap, 0, ntpp, matriz);
-	
-
+	void output(char *a, int matriz[pp][contU], int c);
+	output(aU, matriz,(mA1+mA2+mA3));
+	exit(0);
 }	
 
 /*Algoritmo encargado de realizar permutaciones*/
@@ -130,95 +157,67 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
 	int cont1=0;
 	int cont2=0;
 	int cont3=0;
+	int vector[pp];
 
     if (i==n){
 		if(strlen(a)==n){
-			//printf("\n");
 			for(int k=0;k<x; k++){
-			//printf("\n%c\n",a[k]);
 				for(int j=0;j<contU;j++){
-					//printf(" %d", matriz[(a[k]-'0')-1][j]);
 					if(vector[j]==1 || matriz[(a[k]-'0')-1][j]==1){
 						vector[j]=1;
 					}
 				}
-				//printf("\n");
 			}
 			for(int i=0;i<10; i++){
-				//printf("\n%i\n", vector[i]);
 				if(vector[i]==1){
 					cont1++;
 					vector[i]=0;
 				}	
 			}
-///////////////////////////////////////////////////////////////////////////////
-
-			//printf("\n");
 			for(int l=x;l<y; l++){
-			//printf("\n%c\n",a[l]);
 				for(int j=0;j<contU;j++){
-					//printf(" %d", matriz[(a[l]-'0')-1][j]);
 					if(vector[j]==1 || matriz[(a[l]-'0')-1][j]==1){
 						vector[j]=1;
 					}
 				}
-				//printf("\n");
 			}
 			
 			for(int i=0;i<10; i++){
-				//printf("\n%i\n", vector[i]);
 				if(vector[i]==1){
 					cont2++;
 					vector[i]=0;
 				}	
 			}
-//////////////////////////////////////////////////////////////////////////////
-			//printf("\n");
+
 			for(int m=y;m<z; m++){
-			//printf("\n%c\n",a[m]);
 				for(int j=0;j<contU;j++){
-					//printf(" %d", matriz[(a[m]-'0')-1][j]);
 					if(vector[j]==1 || matriz[(a[m]-'0')-1][j]==1){
 						vector[j]=1;
 					}
 				}
-				//printf("\n");
 			}
 			
 			for(int i=0;i<10; i++){
-				//printf("\n%i\n", vector[i]);
 				if(vector[i]==1){
 					cont3++;
 					vector[i]=0;
 				}	
 			}
 
-			//printf("\n%d\n", contU);
-			if(cont1>=(contU*0.8)&&cont2>=(contU*0.8)&&cont3>=(contU*0.8)&&(cont1>(contU*0.8)&&cont1<=contU||cont2>(contU*0.8)&&cont2<=contU||cont3>(contU*0.8)&&cont3<=contU)){
-				//printf("\n%d%d%d\n", cont1, cont2, cont3);
+			if(cont1>=mA1&&cont2>=mA2&&cont3>=mA2){
+				mA1=cont1;
+				mA2=cont2;
+				mA3=cont3;
+				aU=a;
+			}
+
+			if(cont1>=(contU*0.8)&&cont2>=(contU*0.7)&&cont3>=(contU*0.8)&&(cont1>(contU*0.8)||cont2>(contU*0.8)||cont3>(contU*0.8))){
 				printf("\n%s\n", a);
-
-
-				FILE * flujo2=fopen("output.txt", "a");
-				char hola[100];
-				if(flujo2==NULL){
-				perror("Error en la creacion del archivo \n\n");
-				}else{
-					fputs("Esta es la matriz de platos: \n\n",flujo2);
-					for(int j=0;j<contU;j++){
-						for(int k=0;k<pp;k++){
-							sprintf(hola, "%d", matriz[k][j]);
-							fputs(hola, flujo2);
-						}
-						fputs("\n", flujo2);
-					}
-
-				}
-				fputs("\nEste es el vector solucion: \n", flujo2);
-				fputs(a, flujo2);
-				fclose(flujo2);
+				void output(char *a, int matriz[pp][contU], int c);
+				output(a, matriz,(cont1+cont2+cont3));
 				exit(0);
 			}
+
 		}
 
 	}else
@@ -230,6 +229,35 @@ void permute(char *a, int i, int n, int matriz[pp][contU]){
             swap((a + i), (a + j));
         }
     }
+}
+
+/*Algoritmo necesario para imprimir los resultados en un archivo de salida*/
+void output(char *a, int matriz[pp][contU], int c){
+
+
+	FILE * flujo2=fopen("output.txt", "a");
+	char hola[100];
+	char total[100];
+	if(flujo2==NULL){
+		perror("Error en la creacion del archivo \n\n");
+	}else{
+		fputs("Esta es la matriz de platos: \n\n",flujo2);
+		for(int j=0;j<contU;j++){
+			for(int k=0;k<pp;k++){
+				sprintf(hola, "%d", matriz[k][j]);
+				fputs(hola, flujo2);
+			}
+			fputs("\n", flujo2);
+		}
+
+	}
+		fputs("\nEste es el vector solucion: \n", flujo2);
+		fputs(a, flujo2);
+		fputs("\n\n", flujo2);
+		sprintf(total, "%d", c);
+		fputs("La cantidad total de ingredientes distintos es: ", flujo2);	
+		fputs(total, flujo2);	
+		fclose(flujo2);	
 }
 
 /*Algoritmo complementario para realizar permutaciones
